@@ -18,7 +18,7 @@ public class ComputerHelper {
             Double memory = Common.parseLong(SYSTEM_INFO.getHardware().getMemory().getTotal());
             String processor = SYSTEM_INFO.getHardware().getProcessor().getName();
             PlatformEnum platform = SystemInfo.getCurrentPlatformEnum();
-            computer = new Computer(os, memory, processor, platform);
+
         }
         return computer;
     }

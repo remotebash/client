@@ -2,18 +2,22 @@ package modal;
 
 import oshi.PlatformEnum;
 
+import java.util.UUID;
+
 public class Computer {
 
+    private UUID idComputer;
     private String systemOperation;
     private Double memory;
     private String processor;
     private PlatformEnum platform;
 
-    public Computer(String systemOperation, Double memory, String processor, PlatformEnum platform) {
-        this.setSystemOperation(systemOperation);
-        this.setMemory(memory);
-        this.setProcessor(processor);
-        this.setPlatform(platform);
+    public Computer(UUID idComputer, String systemOperation, Double memory, String processor, PlatformEnum platform) {
+        this.idComputer = idComputer;
+        this.systemOperation = systemOperation;
+        this.memory = memory;
+        this.processor = processor;
+        this.platform = platform;
     }
 
     public PlatformEnum getPlatform() {
