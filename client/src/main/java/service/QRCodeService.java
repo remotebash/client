@@ -1,19 +1,21 @@
 package service;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.pdf.BarcodeQRCode;
+import modal.GenerateQRCode;
 import java.awt.Color;
+
+// para gerar o QRCode >> new QRCodeService().fFrame(idDoPc, "infos");
 
 public class QRCodeService extends JFrame {
 	private static final long serialVersionUID = 9022142288376442819L;
 
 	JFrame frame = new JFrame();
-	Image codeQrImage = null;
 
 	public void fFrame(Integer id, String serial) {
+		new GenerateQRCode(serial);
 
 		frame.setSize(500, 500);
 		frame.setTitle("QRCode do computador N° " + id);
@@ -21,9 +23,8 @@ public class QRCodeService extends JFrame {
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setBackground(Color.white);
 
-		BarcodeQRCode bcQRCode = new BarcodeQRCode(serial, 500, 500, null);
-
-		JLabel qrcode = new JLabel(bcQRCode.toString());
+		ImageIcon icon = new ImageIcon("src/imgs/qrcode.png");
+		JLabel qrcode = new JLabel(icon);
 		qrcode.setSize(10, 10);
 		qrcode.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		frame.add(qrcode);
