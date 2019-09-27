@@ -55,6 +55,8 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.5.7</version>
 		</dependency>
+		
+		<!-- Dependências para QRCode -->
 		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>core</artifactId>

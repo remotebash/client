@@ -2,17 +2,21 @@ package service;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
 import modal.GenerateQRCode;
 import java.awt.Color;
-
-// para gerar o QRCode >> new QRCodeService().fFrame(idDoPc, "infos");
+import java.awt.FlowLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class QRCodeService extends JFrame {
 	private static final long serialVersionUID = 9022142288376442819L;
 
 	JFrame frame = new JFrame();
+	JDialog jdialog = new JDialog(frame, true);
 
 	public void fFrame(Integer id, String serial) {
 		new GenerateQRCode(serial);
@@ -27,7 +31,45 @@ public class QRCodeService extends JFrame {
 		JLabel qrcode = new JLabel(icon);
 		qrcode.setSize(10, 10);
 		qrcode.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		qrcode.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				jdialog.setVisible(true);
+			}
+		});
 		frame.add(qrcode);
+
+		jdialog.setSize(300, 300);
+		jdialog.setLayout(new FlowLayout());
+		jdialog.setLocationRelativeTo(null);
+		jdialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		jdialog.getContentPane().setBackground(Color.white);
 
 		frame.setVisible(true);
 
