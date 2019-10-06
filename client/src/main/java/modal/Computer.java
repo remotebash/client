@@ -2,37 +2,49 @@ package modal;
 
 import oshi.PlatformEnum;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Computer {
 
-    private UUID idComputer;
+    private long idComputer;
     private String systemOperation;
     private Double memory;
     private String processor;
     private PlatformEnum platform;
+    private List<MacAddress> macAddress;
 
-    public Computer(UUID idComputer, String systemOperation, Double memory, String processor, PlatformEnum platform) {
-        this.idComputer = idComputer;
-        this.systemOperation = systemOperation;
-        this.memory = memory;
-        this.processor = processor;
-        this.platform = platform;
+    public Computer() { }
+    
+    public List<MacAddress> getMacAddress() {
+		return this.macAddress;
+	}
+
+	public void setMacAddress(List<MacAddress> macAddress) {
+		this.macAddress = macAddress;
+	}
+
+	public String getSystemOperation() {
+		return systemOperation;
+	}
+
+	public void setIdComputer(long idComputer) {
+		this.idComputer = idComputer;
+	}
+
+	public long getIdComputer() {
+    	return this.idComputer;
     }
-
+    
     public PlatformEnum getPlatform() {
         return platform;
     }
 
-    private void setPlatform(PlatformEnum platform) {
+    public void setPlatform(PlatformEnum platform) {
         this.platform = platform;
     }
 
-    public String setSystemOperation() {
-        return systemOperation;
-    }
-
-    private void setSystemOperation(String systemOperation) {
+    public void setSystemOperation(String systemOperation) {
         this.systemOperation = systemOperation;
     }
 
@@ -40,7 +52,7 @@ public class Computer {
         return memory;
     }
 
-    private void setMemory(Double memory) {
+    public void setMemory(Double memory) {
         this.memory = memory;
     }
 
@@ -48,7 +60,7 @@ public class Computer {
         return processor;
     }
 
-    private void setProcessor(String processor) {
+    public void setProcessor(String processor) {
         this.processor = processor;
     }
 }

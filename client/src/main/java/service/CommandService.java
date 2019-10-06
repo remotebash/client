@@ -1,8 +1,9 @@
 package service;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
+
+import helpers.ComputerHelper;
 import helpers.ConstantsHelper;
 import helpers.HttpHelper;
 import io.PromptIO;
@@ -10,18 +11,16 @@ import modal.Command;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class CommandService {
 
-    private PromptIO promptIO;
-    private HttpHelper http;
-    private Gson gson;
+	private PromptIO promptIO;
+	private HttpHelper http;
+	private Gson gson;
 
-    private List<Command> getCommandsToExecute(){
+	private List<Command> getCommandsToExecute(){
         http = new HttpHelper();
-        String jsonCommands = http.requestGet(ConstantsHelper.URL_MICROSERVICE_COMMAND);
+        String jsonCommands = http.requestGet(ConstantsHelper.URL_MICROSERVICE_COMMAND+"command/computer/"+ ComputerHelper.getComputer().getIdComputer());
 
         if(jsonCommands.length() > 0){
             gson = new Gson();
@@ -32,22 +31,23 @@ public class CommandService {
     }
 
     private void executeCommand(Command command){
+        Command executeCommand = promptIO.exec(command);
         gson = new Gson();
         http = new HttpHelper();
-        String jsonObject = gson.toJson(command);
-        http.requestPost(ConstantsHelper.URL_MICROSERVICE_COMMAND, jsonObject);
+        String jsonObject = gson.toJson(executeCommand);
+        http.requestPut(ConstantsHelper.URL_MICROSERVICE_COMMAND+"command/", jsonObject);
     }
 
-    public void searchCommandToExecute(){
-        List<Command> commandsToExecute = getCommandsToExecute();
-
-        if(commandsToExecute.size() > 0){
-            promptIO = new PromptIO();
-            commandsToExecute.forEach(cmd ->{
-                Command command = promptIO.exec(cmd);
-                executeCommand(command);
-            });
-        }
-    }
+	public boolean searchCommandToExecute() {
+		List<Command> commandsToExecute = getCommandsToExecute();
+		if (commandsToExecute.size() > 0) {
+			promptIO = new PromptIO();
+			commandsToExecute.forEach(command -> {
+				executeCommand(command);
+			});
+			return true;
+		}
+		return false;
+	}
 
 }

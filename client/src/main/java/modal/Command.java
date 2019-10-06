@@ -7,8 +7,8 @@ import java.util.UUID;
 
 public class Command {
 
-    private UUID idCommand;
-    private UUID idComputer;
+    private long idCommand;
+    private long idComputer;
     private PlatformEnum platform;
     private String command;
     private StringBuilder result;
@@ -21,7 +21,7 @@ public class Command {
         this.result = new StringBuilder();
     }
 
-    public Command(UUID idCommand, PlatformEnum platform, String command, Date start, Date end, String whoExcuted, UUID idComputer, boolean isExecuted) {
+    public Command(long idCommand, PlatformEnum platform, String command, Date start, Date end, String whoExcuted, long idComputer, boolean isExecuted) {
         this.idCommand = idCommand;
         this.platform = platform;
         this.command = command;
@@ -33,11 +33,11 @@ public class Command {
         this.isExecuted = isExecuted;
     }
 
-    public UUID getIdCommand() {
+    public long getIdCommand() {
         return idCommand;
     }
 
-    public void setIdCommand(UUID idCommand) {
+    public void setIdCommand(long idCommand) {
         this.idCommand = idCommand;
     }
 
@@ -89,11 +89,11 @@ public class Command {
         this.whoExcuted = whoExcuted;
     }
 
-    public UUID getIdComputer() {
+    public long getIdComputer() {
         return idComputer;
     }
 
-    public void setIdComputer(UUID idComputer) {
+    public void setIdComputer(long idComputer) {
         this.idComputer = idComputer;
     }
 
