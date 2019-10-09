@@ -5,22 +5,25 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
+import modal.Computer;
 import modal.GenerateQRCode;
 import java.awt.Color;
 import java.awt.FlowLayout;
 
 public class QRCodeService extends JFrame {
 	private static final long serialVersionUID = 9022142288376442819L;
+	private static final String remote = "remotebash-" + serialVersionUID;
 
 	JFrame frame = new JFrame();
 	JDialog jdialog = new JDialog(frame, true);
+	Computer pc = new Computer();
 
-	public void fFrame(Integer id, String serial) {
-		new GenerateQRCode(serial);
+	public void fFrame() {
+		new GenerateQRCode(remote, pc.getSystem(), pc.getSerialNumber(), pc.getProcName(), pc.getTotal(), pc.getUsing(),
+				pc.getAvaible(), pc.getVirtualMemory());
 
 		frame.setSize(500, 500);
-		frame.setTitle("QRCode do computador N° " + id);
+		frame.setTitle("QRCode do computador " + pc.getSerialNumber());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setBackground(Color.white);
