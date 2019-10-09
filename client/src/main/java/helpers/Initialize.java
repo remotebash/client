@@ -1,6 +1,5 @@
 package helpers;
 
-import service.CommandService;
 import service.StatusComputerService;
 
 public class Initialize {
@@ -10,7 +9,7 @@ public class Initialize {
     }
 
     private static void load() {
-        ComputerHelper.getComputer();
+        new ComputerHelper();
         StatusComputerService.computerOnline();
     }
 
