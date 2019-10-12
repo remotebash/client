@@ -1,66 +1,72 @@
 package modal;
 
 import oshi.PlatformEnum;
-
-import java.util.List;
-import java.util.UUID;
+import oshi.SystemInfo;
+import oshi.hardware.HardwareAbstractionLayer;
+import oshi.software.os.OperatingSystem;
+import oshi.util.FormatUtil;
 
 public class Computer {
 
-    private long idComputer;
-    private String systemOperation;
-    private Double memory;
-    private String processor;
-    private PlatformEnum platform;
-    private List<MacAddress> macAddress;
+	private PlatformEnum platform;
+	SystemInfo si = new SystemInfo();
+	HardwareAbstractionLayer hal = si.getHardware();
+	OperatingSystem os = si.getOperatingSystem();
 
-    public Computer() { }
-    
-    public List<MacAddress> getMacAddress() {
-		return this.macAddress;
+	public OperatingSystem getSystem() {
+		return os;
 	}
 
-	public void setMacAddress(List<MacAddress> macAddress) {
-		this.macAddress = macAddress;
+	public PlatformEnum getPlatform() {
+		return platform;
 	}
 
-	public String getSystemOperation() {
-		return systemOperation;
+	public String getProcessor() {
+		return si.getHardware().getProcessor().getName();
 	}
 
-	public void setIdComputer(long idComputer) {
-		this.idComputer = idComputer;
+	public double getTotal() {
+		return this.toDouble(hal.getMemory().getTotal());
 	}
 
-	public long getIdComputer() {
-    	return this.idComputer;
-    }
-    
-    public PlatformEnum getPlatform() {
-        return platform;
-    }
+	public double getAvaible() {
+		return this.toDouble(si.getHardware().getMemory().getAvailable());
+	}
 
-    public void setPlatform(PlatformEnum platform) {
-        this.platform = platform;
-    }
+	public double getUsing() {
+		return this.getTotal() - this.getAvaible();
+	}
 
-    public void setSystemOperation(String systemOperation) {
-        this.systemOperation = systemOperation;
-    }
+	public int getUsePorcent() {
+		return (int) ((this.getUsing() * 100.0) / this.getTotal());
+	}
 
-    public Double getMemory() {
-        return memory;
-    }
+	private double toDouble(long num) {
+		return Double.parseDouble(FormatUtil.formatBytes(num).split(" ")[0].replace(",", "."));
+	}
 
-    public void setMemory(Double memory) {
-        this.memory = memory;
-    }
+	public String getProcName() {
+		return hal.getProcessor().getName();
+	}
 
-    public String getProcessor() {
-        return processor;
-    }
+	public int[] getVelocidadeFans() {
+		return si.getHardware().getSensors().getFanSpeeds();
+	}
 
-    public void setProcessor(String processor) {
-        this.processor = processor;
-    }
+	public String getIdProcessadorOSHI() {
+		return si.getHardware().getProcessor().getProcessorID();
+	}
+
+	public String converterMilliParaHoras(long mi) {
+		System.out.println(FormatUtil.formatElapsedSecs(mi));
+		return FormatUtil.formatElapsedSecs(mi);
+	}
+
+	public String getSerialNumber() {
+		return hal.getComputerSystem().getSerialNumber();
+	}
+
+	public double getVirtualMemory() {
+		return this.toDouble(hal.getMemory().getTotal());
+	}
 }
