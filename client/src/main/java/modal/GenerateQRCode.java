@@ -18,9 +18,9 @@ import oshi.software.os.OperatingSystem;
 public class GenerateQRCode {
 
 	public GenerateQRCode(String serialCript, OperatingSystem system, String serial, String procName, double total,
-			double using, double avaible, double ram) {
+			double using, double avaible, double ram, String ip) {
 		String qrCodeText = String.format("SerialNumber: " + serial + "\nSystem: " + system + "\nProcessador: "
-				+ procName + " \nHD Total: " + total + " GB\nHD Disponível: " + avaible + " GB\nMemória RAM: " + ram);
+				+ procName + "\nMemória RAM: " + ram + "\nIP: " + ip);
 
 		String filePath = "src/imgs/qrcode.png";
 		int size = 325;

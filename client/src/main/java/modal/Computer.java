@@ -1,5 +1,9 @@
 package modal;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import oshi.PlatformEnum;
 import oshi.SystemInfo;
 import oshi.hardware.HardwareAbstractionLayer;
@@ -25,8 +29,30 @@ public class Computer {
 		return si.getHardware().getProcessor().getName();
 	}
 
+	public String getMac() {
+		try {
+			InetAddress address = InetAddress.getLocalHost();
+			NetworkInterface ni = NetworkInterface.getByInetAddress(address);
+			byte[] mac = ni.getHardwareAddress();
+			String macAddress = "";
+			for (int i = 0; i < mac.length; i++) {
+				macAddress += (String.format("%02X-", mac[i]));
+			}
+			return (macAddress.substring(0, macAddress.length() - 1));
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public String getIp() {
+		return os.getNetworkParams().getIpv4DefaultGateway();
+	}
+
 	public double getTotal() {
-		return this.toDouble(hal.getMemory().getTotal());
+		return this.toDouble(hal.getMemory().getAvailable());
 	}
 
 	public double getAvaible() {
