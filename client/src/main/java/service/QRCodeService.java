@@ -7,15 +7,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import modal.Computer;
 import modal.GenerateQRCode;
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.Toolkit;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class QRCodeService extends JFrame {
 	private static final long serialVersionUID = 9022142288376442819L;
-	private static final String remote = "remotebash-" + serialVersionUID;
+	private static final String remote = "remotebash";
 
 	JFrame frame = new JFrame();
 	JLabel title = new JLabel();
@@ -25,7 +34,7 @@ public class QRCodeService extends JFrame {
 	Font fTitle = new Font("Helvetica Neue", Font.BOLD, 18);
 
 	public void scrAutentic() {
-		int scann = 1;
+		int scann = 0;
 		if (scann == 0) {
 			System.out.println("Não escaneado");
 			scrQRCode();
@@ -33,7 +42,7 @@ public class QRCodeService extends JFrame {
 			System.out.println("Já escanneado");
 			scrInfos();
 		}
-
+		scrTray();
 	}
 
 	public void scrQRCode() {
@@ -42,7 +51,6 @@ public class QRCodeService extends JFrame {
 
 		frame.setSize(500, 500);
 		frame.setTitle("QRCode do computador " + pc.getSerialNumber());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setBackground(Color.white);
 
@@ -65,7 +73,6 @@ public class QRCodeService extends JFrame {
 
 		frame.setSize(550, 300);
 		frame.setTitle("Computador " + pc.getSerialNumber() + " já registrado");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setBackground(Color.white);
 
@@ -129,6 +136,41 @@ public class QRCodeService extends JFrame {
 
 		frame.add(panel);
 
-		frame.setVisible(true);
+		frame.setVisible(false);
 	}
+
+	public void scrTray() {
+
+		SystemTray sysTray = SystemTray.getSystemTray();
+		Image img = Toolkit.getDefaultToolkit().createImage("src/imgs/iconTray.png");
+		PopupMenu sysMenu = new PopupMenu();
+		TrayIcon trayIcon = new TrayIcon(img, "Remote Bash - Client", sysMenu);
+
+		MenuItem about = new MenuItem("About...");
+		MenuItem sair = new MenuItem("Exit");
+
+		sair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+
+		about.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(true);
+			}
+		});
+
+		sysMenu.add(about);
+		sysMenu.add(sair);
+
+		try {
+			sysTray.add(trayIcon);
+		} catch (AWTException e) {
+			System.out.println("System Tray não suportada!");
+		}
+	}
+
 }

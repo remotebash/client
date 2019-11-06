@@ -19,7 +19,7 @@ public class GenerateQRCode {
 
 	public GenerateQRCode(String serialCript, OperatingSystem system, String serial, String procName, double total,
 			double using, double avaible, double ram, String ip) {
-		String qrCodeText = String.format("SerialNumber: " + serial + "\nSystem: " + system + "\nProcessador: "
+		String qrCodeText = String.format("ID: " + serialCript + "\nSerialNumber: " + serial + "\nProcessador: "
 				+ procName + "\nMemória RAM: " + ram + "\nIP: " + ip);
 
 		String filePath = "src/imgs/qrcode.png";
