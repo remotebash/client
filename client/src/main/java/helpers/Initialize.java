@@ -1,5 +1,6 @@
 package helpers;
 
+import service.QRCodeService;
 import service.StatusComputerService;
 
 public class Initialize {
@@ -9,8 +10,9 @@ public class Initialize {
     }
 
     private static void load() {
-        new ComputerHelper();
+        ComputerHelper.getComputer();
         StatusComputerService.computerOnline();
+        new QRCodeService().scrAutentic();
     }
 
 }

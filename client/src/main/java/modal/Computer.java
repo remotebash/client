@@ -1,98 +1,84 @@
 package modal;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import oshi.PlatformEnum;
-import oshi.SystemInfo;
-import oshi.hardware.HardwareAbstractionLayer;
-import oshi.software.os.OperatingSystem;
-import oshi.util.FormatUtil;
-
 public class Computer {
 
-	private PlatformEnum platform;
-	SystemInfo si = new SystemInfo();
-	HardwareAbstractionLayer hal = si.getHardware();
-	OperatingSystem os = si.getOperatingSystem();
+	private String macaddress;
+	private String ip;
+	private String operationalSystem;
+	private String ramMemory;
+	private String hdTotal;
+	private String hdUsage;
+	private String processorModel;
 
-	public OperatingSystem getSystem() {
-		return os;
+	public Computer(String macaddress, String ip, String operationalSystem, String ramMemory, String hdTotal,
+			String hdUsage, String processorModel) {
+		super();
+		this.macaddress = macaddress;
+		this.ip = ip;
+		this.operationalSystem = operationalSystem;
+		this.ramMemory = ramMemory;
+		this.hdTotal = hdTotal;
+		this.hdUsage = hdUsage;
+		this.processorModel = processorModel;
 	}
 
-	public PlatformEnum getPlatform() {
-		return platform;
+	public Computer() {
 	}
 
-	public String getProcessor() {
-		return si.getHardware().getProcessor().getName();
+	public String getMacaddress() {
+		return macaddress;
 	}
 
-	public String getMac() {
-		try {
-			InetAddress address = InetAddress.getLocalHost();
-			NetworkInterface ni = NetworkInterface.getByInetAddress(address);
-			byte[] mac = ni.getHardwareAddress();
-			String macAddress = "";
-			for (int i = 0; i < mac.length; i++) {
-				macAddress += (String.format("%02X-", mac[i]));
-			}
-			return (macAddress.substring(0, macAddress.length() - 1));
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		} catch (SocketException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public void setMacaddress(String macaddress) {
+		this.macaddress = macaddress;
 	}
 
 	public String getIp() {
-		return os.getNetworkParams().getIpv4DefaultGateway();
+		return ip;
 	}
 
-	public double getTotal() {
-		return this.toDouble(hal.getMemory().getAvailable());
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
-	public double getAvaible() {
-		return this.toDouble(si.getHardware().getMemory().getAvailable());
+	public String getOperationalSystem() {
+		return operationalSystem;
 	}
 
-	public double getUsing() {
-		return this.getTotal() - this.getAvaible();
+	public void setOperationalSystem(String operationalSystem) {
+		this.operationalSystem = operationalSystem;
 	}
 
-	public int getUsePorcent() {
-		return (int) ((this.getUsing() * 100.0) / this.getTotal());
+	public String getRamMemory() {
+		return ramMemory;
 	}
 
-	private double toDouble(long num) {
-		return Double.parseDouble(FormatUtil.formatBytes(num).split(" ")[0].replace(",", "."));
+	public void setRamMemory(String ramMemory) {
+		this.ramMemory = ramMemory;
 	}
 
-	public String getProcName() {
-		return hal.getProcessor().getName();
+	public String getHdTotal() {
+		return hdTotal;
 	}
 
-	public int[] getVelocidadeFans() {
-		return si.getHardware().getSensors().getFanSpeeds();
+	public void setHdTotal(String hdTotal) {
+		this.hdTotal = hdTotal;
 	}
 
-	public String getIdProcessadorOSHI() {
-		return si.getHardware().getProcessor().getProcessorID();
+	public String getHdUsage() {
+		return hdUsage;
 	}
 
-	public String converterMilliParaHoras(long mi) {
-		System.out.println(FormatUtil.formatElapsedSecs(mi));
-		return FormatUtil.formatElapsedSecs(mi);
+	public void setHdUsage(String hdUsage) {
+		this.hdUsage = hdUsage;
 	}
 
-	public String getSerialNumber() {
-		return hal.getComputerSystem().getSerialNumber();
+	public String getProcessorModel() {
+		return processorModel;
 	}
 
-	public double getVirtualMemory() {
-		return this.toDouble(hal.getMemory().getTotal());
+	public void setProcessorModel(String processorModel) {
+		this.processorModel = processorModel;
 	}
+
 }

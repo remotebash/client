@@ -5,6 +5,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import helpers.ComputerHelper;
 import modal.Computer;
 import modal.GenerateQRCode;
 import java.awt.AWTException;
@@ -29,7 +31,7 @@ public class QRCodeService extends JFrame {
 	JFrame frame = new JFrame();
 	JLabel title = new JLabel();
 	JPanel panel = new JPanel();
-	Computer pc = new Computer();
+
 	Font fStandart = new Font("Helvetica Neue", Font.BOLD, 13);
 	Font fTitle = new Font("Helvetica Neue", Font.BOLD, 18);
 
@@ -39,18 +41,18 @@ public class QRCodeService extends JFrame {
 			System.out.println("Não escaneado");
 			scrQRCode();
 		} else {
-			System.out.println("Já escanneado");
+			System.out.println("Já escaneado");
 			scrInfos();
 		}
 		scrTray();
 	}
 
 	public void scrQRCode() {
-		new GenerateQRCode(remote, pc.getSystem(), pc.getSerialNumber(), pc.getProcName(), pc.getTotal(), pc.getUsing(),
-				pc.getAvaible(), pc.getVirtualMemory(), pc.getIp());
+		Computer pc = ComputerHelper.getComputer();
+		new GenerateQRCode(remote, pc);
 
 		frame.setSize(500, 500);
-		frame.setTitle("QRCode do computador " + pc.getSerialNumber());
+		frame.setTitle("QRCode do computador " + pc.getMacaddress());
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setBackground(Color.white);
 
@@ -70,31 +72,31 @@ public class QRCodeService extends JFrame {
 	}
 
 	public void scrInfos() {
-
+		Computer pc = ComputerHelper.getComputer();
 		frame.setSize(550, 300);
-		frame.setTitle("Computador " + pc.getSerialNumber() + " já registrado");
+		frame.setTitle("Computador " + pc.getMacaddress() + " já registrado");
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setBackground(Color.white);
 
 		title.setText("Este computador já foi registrado no dispositivo XXXX");
 		title.setFont(fTitle);
 
-		JLabel system = new JLabel("Sistema: " + pc.getSystem() + "");
+		JLabel system = new JLabel("Sistema: " + pc.getOperationalSystem());
 		system.setFont(fStandart);
 
-		JLabel processor = new JLabel("Processador: " + pc.getProcessor() + " GB");
+		JLabel processor = new JLabel("Processador: " + pc.getProcessorModel());
 		processor.setFont(fStandart);
 
-		JLabel ramTotal = new JLabel("RAM: " + pc.getVirtualMemory() + " GB");
+		JLabel ramTotal = new JLabel("RAM: " + pc.getRamMemory() + "GB");
 		ramTotal.setFont(fStandart);
 
-		JLabel hdTotal = new JLabel("HD: " + pc.getTotal() + " GB");
+		JLabel hdTotal = new JLabel("HD: " + pc.getHdUsage());
 		hdTotal.setFont(fStandart);
 
 		JLabel ip = new JLabel("IP: " + pc.getIp());
 		ip.setFont(fStandart);
 
-		JLabel mac = new JLabel("MAC: " + pc.getMac());
+		JLabel mac = new JLabel("MAC: " + pc.getMacaddress());
 		mac.setFont(fStandart);
 
 		panel.setLayout(new GridBagLayout());
@@ -164,6 +166,7 @@ public class QRCodeService extends JFrame {
 		});
 
 		sysMenu.add(about);
+		sysMenu.addSeparator();
 		sysMenu.add(sair);
 
 		try {
@@ -172,5 +175,4 @@ public class QRCodeService extends JFrame {
 			System.out.println("System Tray não suportada!");
 		}
 	}
-
 }
