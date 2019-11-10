@@ -1,72 +1,84 @@
 package modal;
 
-import oshi.PlatformEnum;
-import oshi.SystemInfo;
-import oshi.hardware.HardwareAbstractionLayer;
-import oshi.software.os.OperatingSystem;
-import oshi.util.FormatUtil;
-
 public class Computer {
 
-	private PlatformEnum platform;
-	SystemInfo si = new SystemInfo();
-	HardwareAbstractionLayer hal = si.getHardware();
-	OperatingSystem os = si.getOperatingSystem();
+	private String macaddress;
+	private String ip;
+	private String operationalSystem;
+	private String ramMemory;
+	private String hdTotal;
+	private String hdUsage;
+	private String processorModel;
 
-	public OperatingSystem getSystem() {
-		return os;
+	public Computer(String macaddress, String ip, String operationalSystem, String ramMemory, String hdTotal,
+			String hdUsage, String processorModel) {
+		super();
+		this.macaddress = macaddress;
+		this.ip = ip;
+		this.operationalSystem = operationalSystem;
+		this.ramMemory = ramMemory;
+		this.hdTotal = hdTotal;
+		this.hdUsage = hdUsage;
+		this.processorModel = processorModel;
 	}
 
-	public PlatformEnum getPlatform() {
-		return platform;
+	public Computer() {
 	}
 
-	public String getProcessor() {
-		return si.getHardware().getProcessor().getName();
+	public String getMacaddress() {
+		return macaddress;
 	}
 
-	public double getTotal() {
-		return this.toDouble(hal.getMemory().getTotal());
+	public void setMacaddress(String macaddress) {
+		this.macaddress = macaddress;
 	}
 
-	public double getAvaible() {
-		return this.toDouble(si.getHardware().getMemory().getAvailable());
+	public String getIp() {
+		return ip;
 	}
 
-	public double getUsing() {
-		return this.getTotal() - this.getAvaible();
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
-	public int getUsePorcent() {
-		return (int) ((this.getUsing() * 100.0) / this.getTotal());
+	public String getOperationalSystem() {
+		return operationalSystem;
 	}
 
-	private double toDouble(long num) {
-		return Double.parseDouble(FormatUtil.formatBytes(num).split(" ")[0].replace(",", "."));
+	public void setOperationalSystem(String operationalSystem) {
+		this.operationalSystem = operationalSystem;
 	}
 
-	public String getProcName() {
-		return hal.getProcessor().getName();
+	public String getRamMemory() {
+		return ramMemory;
 	}
 
-	public int[] getVelocidadeFans() {
-		return si.getHardware().getSensors().getFanSpeeds();
+	public void setRamMemory(String ramMemory) {
+		this.ramMemory = ramMemory;
 	}
 
-	public String getIdProcessadorOSHI() {
-		return si.getHardware().getProcessor().getProcessorID();
+	public String getHdTotal() {
+		return hdTotal;
 	}
 
-	public String converterMilliParaHoras(long mi) {
-		System.out.println(FormatUtil.formatElapsedSecs(mi));
-		return FormatUtil.formatElapsedSecs(mi);
+	public void setHdTotal(String hdTotal) {
+		this.hdTotal = hdTotal;
 	}
 
-	public String getSerialNumber() {
-		return hal.getComputerSystem().getSerialNumber();
+	public String getHdUsage() {
+		return hdUsage;
 	}
 
-	public double getVirtualMemory() {
-		return this.toDouble(hal.getMemory().getTotal());
+	public void setHdUsage(String hdUsage) {
+		this.hdUsage = hdUsage;
 	}
+
+	public String getProcessorModel() {
+		return processorModel;
+	}
+
+	public void setProcessorModel(String processorModel) {
+		this.processorModel = processorModel;
+	}
+
 }

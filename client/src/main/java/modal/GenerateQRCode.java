@@ -7,21 +7,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Hashtable;
 import javax.imageio.ImageIO;
+
+import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import oshi.software.os.OperatingSystem;
 
 public class GenerateQRCode {
 
-	public GenerateQRCode(String serialCript, OperatingSystem system, String serial, String procName, double total,
-			double using, double avaible, double ram) {
-		String qrCodeText = String.format("SerialNumber: " + serial + "\nSystem: " + system + "\nProcessador: "
-				+ procName + " \nHD Total: " + total + " GB\nHD Disponível: " + avaible + " GB\nMemória RAM: " + ram);
-
+	public GenerateQRCode(String serialCript, Computer computer) {
+		String qrCodeText = serialCript + ";" + new Gson().toJson(computer);
 		String filePath = "src/imgs/qrcode.png";
 		int size = 325;
 		String fileType = "png";
