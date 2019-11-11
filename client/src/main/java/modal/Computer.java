@@ -1,8 +1,11 @@
 package modal;
 
+import java.util.List;
+
 public class Computer {
 
-	private String macaddress;
+	private Long id;
+	private List<String> macaddress;
 	private String ip;
 	private String operationalSystem;
 	private String ramMemory;
@@ -10,7 +13,7 @@ public class Computer {
 	private String hdUsage;
 	private String processorModel;
 
-	public Computer(String macaddress, String ip, String operationalSystem, String ramMemory, String hdTotal,
+	public Computer(List<String> macaddress, String ip, String operationalSystem, String ramMemory, String hdTotal,
 			String hdUsage, String processorModel) {
 		super();
 		this.macaddress = macaddress;
@@ -25,11 +28,20 @@ public class Computer {
 	public Computer() {
 	}
 
-	public String getMacaddress() {
+	public Long getIdComputer() {
+		return id;
+	}
+
+	public void setIdComputer(Long idComputer) {
+		this.id = idComputer;
+	}
+
+	
+	public List<String> getMacaddress() {
 		return macaddress;
 	}
 
-	public void setMacaddress(String macaddress) {
+	public void setMacaddress(List<String> macaddress) {
 		this.macaddress = macaddress;
 	}
 

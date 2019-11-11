@@ -50,14 +50,11 @@ public class HttpHelper {
             HttpGet request = new HttpGet(url);
             request.addHeader("content-type", "application/json");
             HttpResponse result = httpClient.execute(request);
-
             String json = EntityUtils.toString(result.getEntity(), "UTF-8");
             return json;
         } catch (IOException ex) {
         }
         return "";
     }
-
-
 
 }

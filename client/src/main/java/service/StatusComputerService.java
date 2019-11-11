@@ -27,7 +27,7 @@ public class StatusComputerService {
                 }
             }
         };
-        timer.scheduleAtFixedRate(task, ConstantsHelper.TIME_DELAY_MS, ConstantsHelper.TIME_DELAY_MS);
+        timer.scheduleAtFixedRate(task, ConstantsHelper.TIME_DELAY_MS_ONLINE, ConstantsHelper.TIME_DELAY_MS_ONLINE);
     }
 
 }
