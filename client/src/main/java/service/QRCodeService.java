@@ -36,13 +36,12 @@ public class QRCodeService extends JFrame {
 	Font fTitle = new Font("Helvetica Neue", Font.BOLD, 18);
 
 	public void scrAutentic() {
-		int scann = 0;
-		if (scann == 0) {
-			System.out.println("Não escaneado");
-			scrQRCode();
-		} else {
+		if (ComputerHelper.getComputer().getIdComputer() > 0) {
 			System.out.println("Já escaneado");
 			scrInfos();
+		} else {
+			System.out.println("Não escaneado");
+			scrQRCode();
 		}
 		scrTray();
 	}

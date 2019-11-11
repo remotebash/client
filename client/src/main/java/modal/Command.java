@@ -3,7 +3,6 @@ package modal;
 import oshi.PlatformEnum;
 
 import java.util.Date;
-import java.util.UUID;
 
 public class Command {
 

@@ -23,16 +23,23 @@ public class PromptIO {
     }
 
     private Command execOnWindows(Command command) {
-        try {
-            Scanner in = new Scanner(Runtime.getRuntime().exec(command.getCommand()).getInputStream(), "ISO-8859-1");
+    	Scanner in = null;
+    	try {
+            in = new Scanner(Runtime.getRuntime().exec(command.getCommand()).getInputStream(), "ISO-8859-1");
             while (in.hasNext()) {
                 command.setResult(in.nextLine());
             }
-            command.setEnd(new Date());
+            command.setEnd(new Date());            
+            if(in != null) {
+            	in.close();
+            }
             return command;
         } catch (Exception e) {
+        	if(in != null) {
+            	in.close();
+            }
             e.printStackTrace();
-        }
-        return command;
+        }       
+    	return command;
     }
 }

@@ -1,13 +1,10 @@
 package helpers;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 import modal.Computer;
 import oshi.SystemInfo;
-import oshi.hardware.NetworkIF;
 import oshi.software.os.OperatingSystem;
 import service.ComputerService;
 
@@ -18,35 +15,39 @@ public class ComputerHelper {
 
 	public static Computer getComputer() {
 		if (computer == null) {
-			OperatingSystem operatingSystem = SYSTEM_INFO.getOperatingSystem();
+			List<String> macs = getMac();
+			
+			ComputerService computerService = new ComputerService();
+			Computer computerSaved = computerService.getComputer(macs);
+			
+			if(computerSaved != null) {			
+				computer = computerSaved;
+			}else {
+				OperatingSystem operatingSystem = SYSTEM_INFO.getOperatingSystem();
 
-			String os = String.format("%1$s %2$s - build %3$s", operatingSystem.getFamily(),
-					operatingSystem.getVersion().getVersion(), operatingSystem.getVersion().getBuildNumber());
-			Double memory = Common.parseLong(SYSTEM_INFO.getHardware().getMemory().getTotal());
-			String processor = SYSTEM_INFO.getHardware().getProcessor().getName();
-			String mac = getMac();
-			computer = new Computer(mac, "192.168.0.9", os, memory.toString(), "500GB", "100GB", processor);
-
+				String os = String.format("%1$s %2$s - build %3$s", operatingSystem.getFamily(),
+						operatingSystem.getVersion().getVersion(), operatingSystem.getVersion().getBuildNumber());
+				Double memory = Common.parseLong(SYSTEM_INFO.getHardware().getMemory().getTotal());
+				String processor = SYSTEM_INFO.getHardware().getProcessor().getName();
+				
+				computer = new Computer(macs, "192.168.0.9", os, memory.toString(), "500GB", "100GB", processor);
+			}
 		}
 		return computer;
 	}
 
-	public static String getMac() {
-		try {
-			InetAddress address = InetAddress.getLocalHost();
-			NetworkInterface ni = NetworkInterface.getByInetAddress(address);
-			byte[] mac = ni.getHardwareAddress();
-			String macAddress = "";
-			for (int i = 0; i < mac.length; i++) {
-				macAddress += (String.format("%02X-", mac[i]));
+	public static List<String> getMac() {
+		
+		int index = SYSTEM_INFO.getHardware().getNetworkIFs().length;
+		List<String> macs = new ArrayList<>();
+
+		for (int i = 0; i < index; i++) {
+			if(!SYSTEM_INFO.getHardware().getNetworkIFs()[i].getDisplayName().toLowerCase().contains("virtual")) {
+				macs.add(SYSTEM_INFO.getHardware().getNetworkIFs()[i].getMacaddr());				
 			}
-			return (macAddress.substring(0, macAddress.length() - 1));
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		} catch (SocketException e) {
-			e.printStackTrace();
 		}
-		return null;
+		
+		return macs;
 	}
 
 }
