@@ -17,9 +17,13 @@ public class ComputerService {
 		String response = "";
 		Gson gson = new Gson();
 		
-		String macsRequest = gson.toJson(macs).replace("[", "").replace("]", "");		
-		response = helper.requestGet(ConstantsHelper.URL_REST+"computers/"+macsRequest);
+		String request = "search/computers?";
+		for(String mac : macs) {
+			request += "macAddressList="+mac+"&";
+		}
+		request = request.substring(0, request.length() - 1);
+		response = helper.requestGet(ConstantsHelper.URL_REST+request);
 		
-		return gson.fromJson(response, Computer.class); 
+		return gson.fromJson(response, Computer.class);
 	}
 }

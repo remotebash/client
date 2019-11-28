@@ -11,12 +11,13 @@ public class StatusComputerService {
 
 
     private static void setComputerOnline(){
-    	String jsonObject = "{id: \""+ComputerHelper.getComputer().getIdComputer()+"\"}";
+    	String jsonObject = "{\"id\": \""+ComputerHelper.getComputer().getIdComputer()+"\"}";
     	HttpHelper http = new HttpHelper();
     	http.requestPost(ConstantsHelper.URL_MICROSERVICE_COMPUTER_ONLINE, jsonObject);
     }
 
     public static void computerOnline(){
+    	setComputerOnline();
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {

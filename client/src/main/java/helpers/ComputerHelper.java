@@ -16,7 +16,7 @@ public class ComputerHelper {
 	public static Computer getComputer() {
 		if (computer == null) {
 			List<String> macs = getMac();
-			
+						
 			ComputerService computerService = new ComputerService();
 			Computer computerSaved = computerService.getComputer(macs);
 			
@@ -30,7 +30,8 @@ public class ComputerHelper {
 				Double memory = Common.parseLong(SYSTEM_INFO.getHardware().getMemory().getTotal());
 				String processor = SYSTEM_INFO.getHardware().getProcessor().getName();
 				
-				computer = new Computer(macs, "192.168.0.9", os, memory.toString(), "500GB", "100GB", processor);
+				computer = new Computer(macs.get(0), "192.168.0.9", os, memory.toString(), "500GB", "100GB", processor);
+				computer.setIdComputer(0L);
 			}
 		}
 		return computer;

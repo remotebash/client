@@ -5,7 +5,7 @@ import java.util.List;
 public class Computer {
 
 	private Long id;
-	private List<String> macaddress;
+	private String macaddress;
 	private String ip;
 	private String operationalSystem;
 	private String ramMemory;
@@ -13,7 +13,7 @@ public class Computer {
 	private String hdUsage;
 	private String processorModel;
 
-	public Computer(List<String> macaddress, String ip, String operationalSystem, String ramMemory, String hdTotal,
+	public Computer(String macaddress, String ip, String operationalSystem, String ramMemory, String hdTotal,
 			String hdUsage, String processorModel) {
 		super();
 		this.macaddress = macaddress;
@@ -37,11 +37,11 @@ public class Computer {
 	}
 
 	
-	public List<String> getMacaddress() {
+	public String getMacaddress() {
 		return macaddress;
 	}
 
-	public void setMacaddress(List<String> macaddress) {
+	public void setMacaddress(String macaddress) {
 		this.macaddress = macaddress;
 	}
 

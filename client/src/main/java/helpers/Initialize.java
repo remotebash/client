@@ -25,8 +25,10 @@ public class Initialize {
 	}
 
 	private static void load() {
-		if(ComputerHelper.getComputer().getIdComputer() > 0)
+		if(ComputerHelper.getComputer().getIdComputer() > 0) {
 			StatusComputerService.computerOnline();
+			new QRCodeService().scrAutentic();			
+		}
 		else
 			new QRCodeService().scrAutentic();
 	}
