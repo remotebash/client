@@ -29,7 +29,7 @@ public class PromptIO {
     	BufferedReader read = null;
     	try {
     		StringBuilder stringBuilder = new StringBuilder();
-    		Process proc = Runtime.getRuntime().exec(command.getCommand());
+    		Process proc = Runtime.getRuntime().exec("cmd /c "+command.getCommand());
     	    read = new BufferedReader(new InputStreamReader(proc.getInputStream(), "UTF-8"));
     		
     	    String line = "";
