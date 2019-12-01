@@ -1,7 +1,5 @@
 package modal;
 
-import java.util.List;
-
 public class Computer {
 
 	private Long id;

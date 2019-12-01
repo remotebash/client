@@ -1,43 +1,56 @@
 package io;
 
-import com.sun.jna.Platform;
 import modal.Command;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class PromptIO {
 
     public Command exec(Command command) {
-        switch (command.getPlatform()) {
-            case WINDOWS:
-                return execOnWindows(command);
-            case LINUX:
-            case MACOSX:
-            case SOLARIS:
-            case FREEBSD:
-            case UNKNOWN:
-            default:
-                throw new UnsupportedOperationException(String.format("Operating system not supported: %1$d", Platform.getOSType()));
-        }
+    	if(command.getOperationSystem().toLowerCase().contains("windows"))
+    		return execOnWindows(command);
+    	
+    	return updateCommandToSystemNotSupported(command);
+    }
+    
+    private Command updateCommandToSystemNotSupported(Command command) {
+    	 command.setResult("System not supported");
+    	 command.setEnd(new Date());
+    	 command.setIsExecuted(true);
+    	 return command;    	
     }
 
     private Command execOnWindows(Command command) {
-    	Scanner in = null;
+    	BufferedReader read = null;
     	try {
-            in = new Scanner(Runtime.getRuntime().exec(command.getCommand()).getInputStream(), "ISO-8859-1");
-            while (in.hasNext()) {
-                command.setResult(in.nextLine());
-            }
-            command.setEnd(new Date());            
-            if(in != null) {
-            	in.close();
-            }
+    		StringBuilder stringBuilder = new StringBuilder();
+    		Process proc = Runtime.getRuntime().exec(command.getCommand());
+    	    read = new BufferedReader(new InputStreamReader(proc.getInputStream(), "UTF-8"));
+    		
+    	    String line = "";
+    	    while ((line = read.readLine()) != null) {
+    	    	stringBuilder.append(line+System.lineSeparator());
+    	    }
+    	    
+            System.err.println(stringBuilder.toString());
+            command.setResult(stringBuilder.toString());
+            command.setEnd(new Date());
+            command.setIsExecuted(true);
+            read.close();
             return command;
         } catch (Exception e) {
-        	if(in != null) {
-            	in.close();
-            }
+        	if(read != null) {
+        		try {
+					read.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+        	}
             e.printStackTrace();
         }       
     	return command;

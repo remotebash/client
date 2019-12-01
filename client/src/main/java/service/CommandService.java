@@ -21,7 +21,6 @@ public class CommandService {
 	private List<Command> getCommandsToExecute(){
         http = new HttpHelper();
         String jsonCommands = http.requestGet(ConstantsHelper.URL_MICROSERVICE_COMMAND+"command/computer/"+ ComputerHelper.getComputer().getIdComputer());
-
         if(jsonCommands.length() > 0){
             gson = new Gson();
             return gson.fromJson(jsonCommands, new TypeToken<List<Command>>(){}.getType());

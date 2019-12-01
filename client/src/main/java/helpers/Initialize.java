@@ -10,26 +10,25 @@ public class Initialize {
 		load();
 		CommandService cmd = new CommandService();
 		while (true) {
-			System.out.println("search commands");
-			if (!cmd.searchCommandToExecute()) {
-				try {
+			try {
+				Thread.sleep(ConstantsHelper.TIME_DELAY_MS_GET_COMMAND);
+				System.out.println("search commands");
+				if (!cmd.searchCommandToExecute()) {
 					System.out.println("commands not found");
-					Thread.sleep(ConstantsHelper.TIME_DELAY_MS_GET_COMMAND);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				} else {
+					System.out.println("commands found");
 				}
-			} else {
-				System.out.println("commands found");
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}
 
 	private static void load() {
-		if(ComputerHelper.getComputer().getIdComputer() > 0) {
+		if (ComputerHelper.getComputer().getIdComputer() > 0) {
 			StatusComputerService.computerOnline();
-			new QRCodeService().scrAutentic();			
-		}
-		else
+			new QRCodeService().scrAutentic();
+		} else
 			new QRCodeService().scrAutentic();
 	}
 

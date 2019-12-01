@@ -37,10 +37,11 @@ public class HttpHelper {
             request.addHeader("content-type", "application/json");
             request.setEntity(params);
             HttpResponse result = httpClient.execute(request);
-
+            System.err.println(result);
             String json = EntityUtils.toString(result.getEntity(), "UTF-8");
             return json;
         } catch (IOException ex) {
+        	System.err.println(ex);
         }
         return "";
     }
