@@ -77,7 +77,7 @@ public class QRCodeService extends JFrame {
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setBackground(Color.white);
 
-		title.setText("Este computador já foi registrado no dispositivo XXXX");
+		title.setText("Este computador já foi registrado");
 		title.setFont(fTitle);
 
 		JLabel system = new JLabel("Sistema: " + pc.getOperationalSystem());
