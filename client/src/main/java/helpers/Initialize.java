@@ -11,9 +11,9 @@ public class Initialize {
 		CommandService cmd = new CommandService();
 		while (true) {
 			try {
-				Thread.sleep(ConstantsHelper.TIME_DELAY_MS_GET_COMMAND);
 				System.out.println("search commands");
 				if (!cmd.searchCommandToExecute()) {
+					Thread.sleep(ConstantsHelper.TIME_DELAY_MS_GET_COMMAND);
 					System.out.println("commands not found");
 				} else {
 					System.out.println("commands found");
@@ -27,9 +27,9 @@ public class Initialize {
 	private static void load() {
 		if (ComputerHelper.getComputer().getIdComputer() > 0) {
 			StatusComputerService.computerOnline();
-			new QRCodeService().scrAutentic();
-		} else
-			new QRCodeService().scrAutentic();
+		}
+		
+		new QRCodeService().scrAutentic();
 	}
 
 }

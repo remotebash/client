@@ -6,5 +6,5 @@ public class ConstantsHelper {
     public final static String URL_REST = "http://3.94.151.158:8082/";
     //public final static String URL_REST = "http://localhost:8082/";
     public final static long TIME_DELAY_MS_ONLINE = 90000;
-    public final static long TIME_DELAY_MS_GET_COMMAND = 10000;
+    public final static long TIME_DELAY_MS_GET_COMMAND = 8000;
 }
