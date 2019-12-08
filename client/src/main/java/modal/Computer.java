@@ -34,7 +34,6 @@ public class Computer {
 		this.id = idComputer;
 	}
 
-	
 	public String getMacaddress() {
 		return macaddress;
 	}

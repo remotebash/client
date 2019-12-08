@@ -19,7 +19,10 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 public class GenerateQRCode {
 
 	public GenerateQRCode(String serialCript, Computer computer) {
-		String qrCodeText = serialCript + ";" + new Gson().toJson(computer);
+		String computerFormat = String.format("%s;%s;%s;%s;%s;%s;%s;%s;", computer.getIdComputer(),
+				computer.getMacaddress(), computer.getIp(), computer.getOperationalSystem(), computer.getRamMemory(),
+				computer.getHdTotal(), computer.getHdUsage(), computer.getProcessorModel());
+		String qrCodeText = serialCript + ";" + new Gson().toJson(computerFormat);
 		String filePath = "src/imgs/qrcode.png";
 		int size = 325;
 		String fileType = "png";
