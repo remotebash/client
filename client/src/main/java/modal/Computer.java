@@ -10,9 +10,10 @@ public class Computer {
 	private String hdTotal;
 	private String hdUsage;
 	private String processorModel;
+	private String processorBrand;
 
 	public Computer(String macaddress, String ip, String operationalSystem, String ramMemory, String hdTotal,
-			String hdUsage, String processorModel) {
+			String hdUsage, String processorModel, String processorBrand) {
 		super();
 		this.macaddress = macaddress;
 		this.ip = ip;
@@ -21,6 +22,7 @@ public class Computer {
 		this.hdTotal = hdTotal;
 		this.hdUsage = hdUsage;
 		this.processorModel = processorModel;
+		this.processorBrand = processorBrand;
 	}
 
 	public Computer() {
@@ -88,6 +90,14 @@ public class Computer {
 
 	public void setProcessorModel(String processorModel) {
 		this.processorModel = processorModel;
+	}
+
+	public String getProcessorBrand() {
+		return processorBrand;
+	}
+
+	public void setProcessorBrand(String processorBrand) {
+		this.processorBrand = processorBrand;
 	}
 
 }

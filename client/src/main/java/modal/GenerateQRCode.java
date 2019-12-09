@@ -21,7 +21,7 @@ public class GenerateQRCode {
 	public GenerateQRCode(String serialCript, Computer computer) {
 		String computerFormat = String.format("%s;%s;%s;%s;%s;%s;%s;%s;", computer.getIdComputer(),
 				computer.getMacaddress(), computer.getIp(), computer.getOperationalSystem(), computer.getRamMemory(),
-				computer.getHdTotal(), computer.getHdUsage(), computer.getProcessorModel());
+				computer.getHdTotal(), computer.getHdUsage(), "Intel", "i5");
 		String qrCodeText = serialCript + ";" + new Gson().toJson(computerFormat);
 		String filePath = "src/imgs/qrcode.png";
 		int size = 325;

@@ -32,7 +32,7 @@ public class ComputerHelper {
 				Double memoryFree = Common.parseLong(SYSTEM_INFO.getHardware().getProcessor().getContextSwitches());
 
 				computer = new Computer(macs.get(0), ip, os, memory.toString(), "500GB", memoryFree + "GB".toString(),
-						processor);
+						processor,"i5");
 				computer.setIdComputer(0L);
 			}
 		}
