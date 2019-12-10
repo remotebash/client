@@ -1,7 +1,8 @@
 package service;
 
-import helpers.Common;
+import helpers.ComputerHelper;
 import helpers.ConstantsHelper;
+import helpers.HttpHelper;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -9,9 +10,14 @@ import java.util.TimerTask;
 public class StatusComputerService {
 
 
-    private static void setComputerOnline(){ System.out.println(ConstantsHelper.URL_MICROSERVICE_COMPUTER_ONLINE); }
+    private static void setComputerOnline(){
+    	String jsonObject = "{\"id\": \""+ComputerHelper.getComputer().getIdComputer()+"\"}";
+    	HttpHelper http = new HttpHelper();
+    	http.requestPost(ConstantsHelper.URL_MICROSERVICE_COMPUTER_ONLINE, jsonObject);
+    }
 
     public static void computerOnline(){
+    	setComputerOnline();
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
@@ -22,7 +28,7 @@ public class StatusComputerService {
                 }
             }
         };
-        timer.scheduleAtFixedRate(task, ConstantsHelper.TIME_DELAY_MS, ConstantsHelper.TIME_DELAY_MS);
+        timer.scheduleAtFixedRate(task, ConstantsHelper.TIME_DELAY_MS_ONLINE, ConstantsHelper.TIME_DELAY_MS_ONLINE);
     }
 
 }

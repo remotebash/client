@@ -1,52 +1,46 @@
 package modal;
 
-import oshi.PlatformEnum;
-
 import java.util.Date;
-import java.util.UUID;
 
 public class Command {
 
-    private UUID idCommand;
-    private UUID idComputer;
-    private PlatformEnum platform;
+    private String idCommand;
+    private long idComputer;
+    private String operationalSystem;
     private String command;
-    private StringBuilder result;
+    private String result;
     private Date start;
     private Date end;
-    private String whoExcuted;
+    private long userId;
     private boolean isExecuted;
 
-    public Command() {
-        this.result = new StringBuilder();
-    }
+    public Command() {}
 
-    public Command(UUID idCommand, PlatformEnum platform, String command, Date start, Date end, String whoExcuted, UUID idComputer, boolean isExecuted) {
+    public Command(String idCommand, String operationalSystem, String command, Date start, Date end, long userId, long idComputer, boolean isExecuted) {
         this.idCommand = idCommand;
-        this.platform = platform;
+        this.operationalSystem = operationalSystem;
         this.command = command;
-        this.result = new StringBuilder();
         this.start = start;
         this.end = end;
-        this.whoExcuted = whoExcuted;
+        this.userId = userId;
         this.idComputer = idComputer;
         this.isExecuted = isExecuted;
     }
 
-    public UUID getIdCommand() {
+    public String getIdCommand() {
         return idCommand;
     }
 
-    public void setIdCommand(UUID idCommand) {
+    public void setIdCommand(String idCommand) {
         this.idCommand = idCommand;
     }
 
-    public PlatformEnum getPlatform() {
-        return platform;
+    public String getOperationSystem() {
+        return operationalSystem;
     }
 
-    public void setPlatform(PlatformEnum platform) {
-        this.platform = platform;
+    public void setOperationSystem(String operationalSystem) {
+        this.operationalSystem = operationalSystem;
     }
 
     public String getCommand() {
@@ -57,12 +51,12 @@ public class Command {
         this.command = command;
     }
 
-    public StringBuilder getResult() {
+    public String getResult() {
         return result;
     }
 
     public void setResult(String result) {
-        this.result.append(result+"\n");
+        this.result = result;
     }
 
     public Date getStart() {
@@ -81,19 +75,19 @@ public class Command {
         this.end = end;
     }
 
-    public String getWhoExcuted() {
-        return whoExcuted;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setWhoExcuted(String whoExcuted) {
-        this.whoExcuted = whoExcuted;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
-    public UUID getIdComputer() {
+    public long getIdComputer() {
         return idComputer;
     }
 
-    public void setIdComputer(UUID idComputer) {
+    public void setIdComputer(long idComputer) {
         this.idComputer = idComputer;
     }
 
@@ -101,7 +95,7 @@ public class Command {
         return isExecuted;
     }
 
-    public void setExecuted(boolean executed) {
-        isExecuted = executed;
+    public void setIsExecuted(boolean isExecuted) {
+        this.isExecuted = isExecuted;
     }
 }

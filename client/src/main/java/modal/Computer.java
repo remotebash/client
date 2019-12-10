@@ -1,54 +1,103 @@
 package modal;
 
-import oshi.PlatformEnum;
-
-import java.util.UUID;
-
 public class Computer {
 
-    private UUID idComputer;
-    private String systemOperation;
-    private Double memory;
-    private String processor;
-    private PlatformEnum platform;
+	private Long id;
+	private String macaddress;
+	private String ip;
+	private String operationalSystem;
+	private String ramMemory;
+	private String hdTotal;
+	private String hdUsage;
+	private String processorModel;
+	private String processorBrand;
 
-    public Computer(UUID idComputer, String systemOperation, Double memory, String processor, PlatformEnum platform) {
-        this.idComputer = idComputer;
-        this.systemOperation = systemOperation;
-        this.memory = memory;
-        this.processor = processor;
-        this.platform = platform;
-    }
+	public Computer(String macaddress, String ip, String operationalSystem, String ramMemory, String hdTotal,
+			String hdUsage, String processorModel, String processorBrand) {
+		super();
+		this.macaddress = macaddress;
+		this.ip = ip;
+		this.operationalSystem = operationalSystem;
+		this.ramMemory = ramMemory;
+		this.hdTotal = hdTotal;
+		this.hdUsage = hdUsage;
+		this.processorModel = processorModel;
+		this.processorBrand = processorBrand;
+	}
 
-    public PlatformEnum getPlatform() {
-        return platform;
-    }
+	public Computer() {
+	}
 
-    private void setPlatform(PlatformEnum platform) {
-        this.platform = platform;
-    }
+	public Long getIdComputer() {
+		return id;
+	}
 
-    public String setSystemOperation() {
-        return systemOperation;
-    }
+	public void setIdComputer(Long idComputer) {
+		this.id = idComputer;
+	}
 
-    private void setSystemOperation(String systemOperation) {
-        this.systemOperation = systemOperation;
-    }
+	public String getMacaddress() {
+		return macaddress;
+	}
 
-    public Double getMemory() {
-        return memory;
-    }
+	public void setMacaddress(String macaddress) {
+		this.macaddress = macaddress;
+	}
 
-    private void setMemory(Double memory) {
-        this.memory = memory;
-    }
+	public String getIp() {
+		return ip;
+	}
 
-    public String getProcessor() {
-        return processor;
-    }
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
 
-    private void setProcessor(String processor) {
-        this.processor = processor;
-    }
+	public String getOperationalSystem() {
+		return operationalSystem;
+	}
+
+	public void setOperationalSystem(String operationalSystem) {
+		this.operationalSystem = operationalSystem;
+	}
+
+	public String getRamMemory() {
+		return ramMemory;
+	}
+
+	public void setRamMemory(String ramMemory) {
+		this.ramMemory = ramMemory;
+	}
+
+	public String getHdTotal() {
+		return hdTotal;
+	}
+
+	public void setHdTotal(String hdTotal) {
+		this.hdTotal = hdTotal;
+	}
+
+	public String getHdUsage() {
+		return hdUsage;
+	}
+
+	public void setHdUsage(String hdUsage) {
+		this.hdUsage = hdUsage;
+	}
+
+	public String getProcessorModel() {
+		return processorModel;
+	}
+
+	public void setProcessorModel(String processorModel) {
+		this.processorModel = processorModel;
+	}
+
+	public String getProcessorBrand() {
+		return processorBrand;
+	}
+
+	public void setProcessorBrand(String processorBrand) {
+		this.processorBrand = processorBrand;
+	}
+
 }
